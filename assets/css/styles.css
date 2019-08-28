@@ -414,6 +414,12 @@ body {
 }
 }
 
+@media (max-width: 700px) {
+.lessons-list-container {
+    width: 95%;
+}
+}
+
 .lessons-list-helper {
     position: fixed;
     background-color: #000000;
