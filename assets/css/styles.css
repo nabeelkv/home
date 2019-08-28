@@ -411,6 +411,7 @@ body {
 @media (max-width: 700px) {
 .lessons-list-container {
     display: none;
+    width: 100%;
 }
 }
 
