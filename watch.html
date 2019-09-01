@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+<!-- You need to enable JavaScript to run this app. -->
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no,maximum-scale=1,user-scalable=0" />
+  <title>VideoTube</title>
+
+  <link href="assets/css/fonts.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="assets/js/commonActions.js"></script> -->
+  <!-- <script src="assets/js/userActions.js"></script> -->
+
+</head>
+
+<style type="text/css">
+  .actionbar-container2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    cursor: pointer;
+    height: 100%;
+    margin-right: auto;
+  }
+
+  .progressbar-container {
+    flex: 5;
+    display: flex;
+    align-items: center;
+    margin: 0px 30px;
+    max-width: 900px;
+    padding-bottom: 4PX;
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background-color: #f9fafe;
+    border: 1px solid #e8e8e8;
+    padding: 1px;
+    box-sizing: content-box;
+  }
+
+  .progress {
+    display: block;
+    border-radius: 4px;
+    width: 6.25%;
+    height: 100%;
+    max-width: 100%;
+    transition: width 300ms 0ms ease-in;
+    background-color: #78c800;
+  }
+
+
+  /*My PlayList Section*/
+
+  .lesson-playlist-container {
+    width: 350px;
+    background-color: #f5f5f5;
+    padding-top: 60px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e8e8e8;
+    z-index: 99;
+  }
+
+  @media (max-width: 900px) and (min-width: 699px) {
+    .lesson-playlist-container {
+      width: 300px;
+    }
+  }
+
+ /* @media (max-width: 700px) {
+    .lesson-playlist-container {
+      display: none;
+    }
+  }
+*/
+  .lesson-playlist-scrollable {
+    overflow: scroll;
+  }
+
+  .lesson-playlist-heading {
+    background-color: #3659a2;
+    font-size: 14px;
+    color: #fff;
+    padding: 24px 48px 24px 30px;
+  }
+
+  .lesson-playlist-item {
+    display: flex;
+    cursor: pointer;
+    padding: 7px 25px;
+    border-bottom: 1px solid #e8e8e8;
+    box-sizing: border-box;
+  }
+
+  .lesson-playlist-item.active {
+    background-color: rgba(0, 0, 0, 0.09);
+  }
+
+  .lesson-playlist-item:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  .lesson-playlist-img {
+    margin-right: 16px;
+    /*    width: 48px;
+    height: 48px;*/
+  }
+
+  .lesson-playlist-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    justify-content: center;
+  }
+
+  .lesson-playlist-title {
+
+  }
+
+  .lesson-playlist-title-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    justify-content: center;
+    text-decoration: none;
+  }
+
+  .lesson-playlist-dt {
+    color: rgba(17, 17, 17, 0.6);
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .lp-isolation {
+    position: fixed;
+    background-color: #000000;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 98;
+    animation: overlayFadeIn 0.5s forwards;
+}
+
+
+  /*Lesson Content Section*/
+
+
+  .lessons-content-container {
+    width: 100%;
+    background: #fff;
+    display: flex;
+    padding-top: 60px;
+    /*padding-left: 350px;*/
+  }
+
+  @media (max-width: 700px) {
+  .lessons-content-container {
+      padding-left: 0px;
+    }
+  }
+
+
+  .lessons-content-scrollable {
+    width: 100%;
+    overflow: scroll;
+
+  }
+
+  .lesson-view-container {
+    width: 75%;
+    margin: auto;
+    padding-top: 30px;
+  }
+
+
+  .lesson-view-scrollable {
+    overflow: scroll;
+  }
+
+.lesson-img {
+    width: 100%;
+}
+
+.lesson-deck {
+    padding-bottom: 30px;
+}
+
+/*Lesson Action*/
+
+.lesson-action-container {
+  padding: 50px;
+  text-align: center;
+}
+
+.lesson-action {
+    cursor: pointer;
+    border-radius: 4px;
+    border: 0px;
+    background-color: #2692e6;
+    color: #ffffff;
+    height: 48px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    width: 240px;
+}
+
+.lesson-feedback-section {
+    width: 100%;
+}
+
+.lesson-feedback-container {
+
+    width: 500px;
+    max-width: 100%;
+    margin: auto;
+}
+
+.success {
+    position: fixed;
+    bottom: 0;
+    padding: 7px 30px;
+    box-sizing: border-box;
+    background-color: #c8e6c9;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2px 6px 0px #00000017;
+}
+
+.feedback {
+    display: flex;
+    padding: 10px 5px 0px;
+    box-sizing: border-box;
+}
+
+
+.fd-img {
+    margin-right: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.feedback-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+    justify-content: center;
+}
+
+.feedback-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #50af50;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.fd-hint {
+    color: rgba(17,17,17,0.6);
+    font-size: 13px;
+    font-weight: 400;
+    width: 90%;
+}
+
+.report{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.report-text {
+  display: flex;
+  font-size: 11px;
+  cursor: pointer;
+  color: #a0a2b0;
+}
+
+.report-icon {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.feedback-action-container {
+  width: 100%;
+  display: flex;
+}
+
+.feedback-action {
+    cursor: pointer;
+    border-radius: 4px;
+    border: 0px;
+    background-color: #62d76b;
+    color: #ffffff;
+    height: 48px;
+    font-size: 16px;
+    width: 100%;
+    margin: 10px auto 30px;
+}
+
+</style>
+
+
+<body>
+
+  <div class="page-container">
+
+    <div class="navbar-container">
+
+      <div class="actionbar-container2">
+        <div class="action-bar2">
+          <div class="action-bar-icon2">
+            <img src="assets/images/icons/back.png">
+          </div>
+        </div>
+      </div>
+
+      <div class="progressbar-container">
+        <div class="progress-bar">
+          <span class="progress">
+          </span>
+        </div>
+      </div>
+
+      <div class="navbar-profile">
+        <div class="profile-nav">
+          <img src="assets/images/profilePictures/default.png" class="profile-img">
+        </div>
+
+
+        <!-- //Prfile Dropdowns -->
+
+        <span class="profile_dropdown-container" style="display: none;">
+
+          <div class="dd-items-container">
+
+            <a class="dd-item-container">
+              <div class="dd-item"><span class="dd-item-icon dropdown-item-icon">
+                  <img src="assets/images/icons/profile.png">
+                </span>
+                <p class="dd-item-text dropdown-item-text">Profile</p>
+              </div>
+            </a>
+            <a class="dd-item-container">
+              <div class="dd-item"><span class="dd-item-icon dropdown-item-icon">
+                  <img src="assets/images/icons/settings.png">
+                </span>
+                <p class="dd-item-text dropdown-item-text">Settings</p>
+              </div>
+            </a>
+            <a class="dd-item-container">
+              <div class="dd-item"><span class="dd-item-icon dropdown-item-icon">
+                  <img src="assets/images/icons/feedback.png">
+                </span>
+                <p class="dd-item-text dropdown-item-text">Feedback</p>
+              </div>
+            </a>
+
+            <div class="dd-hr-container">
+              <div class="dd-hr"></div>
+            </div>
+
+            <a class="dd-item-container">
+              <div class="dd-item"><span class="dd-item-icon dropdown-item-icon">
+                  <img src="assets/images/icons/logout.png">
+                </span>
+                <p class="dd-item-text dropdown-item-text">Logout</p>
+              </div>
+            </a>
+
+          </div>
+
+          <div class="dd-isolate"></div>
+        </span>
+
+
+
+        <!-- end dropdrown -->
+
+
+      </div>
+    </div>
+
+
+    <div class="main-content-container">
+
+      <!-- Lesson content container -->
+
+      <div class="lessons-content-container">
+
+        <div class="lessons-content-scrollable">
+
+          <div class="lesson-view-container">
+
+            <div class="lessons-view-scrollable">
+
+                <div class="lessons-shrink" style="width: 700px;margin: auto;max-width: 100%">
+
+
+                  <img src="https://images.getmimo.com/images/78ea54c9-944e-43d3-99d5-dcd90d671357" class="lesson-img">
+
+                  <div class="lesson-deck">
+
+                    <p>Welcome to the <strong>Learn to Code track</strong>, which has been the starting point for millions of learners.</p>
+
+                    <p>In this track, you'll master the fundamentals of programming in the most important computer languages and start coding websites.</p>
+
+                  </div>
+
+                </div> <!-- lesson shrink -->
+
+            </div>
+          </div>
+
+
+            <div class="lesson-action-container">
+
+              <button class="lesson-action">Next Lesson</button>
+                    
+            </div>
+
+<div class="lesson-feedback-section success" style="display: none;">
+     <div class="lesson-feedback-container">
+
+            <div class="feedback active">
+
+                <img src="assets/images/icons/checked2.png" class="fd-img">
+
+              <div class="feedback-info">
+                <span class="feedback-text">
+                    Awesome!
+                </span>
+                <span class="fd-hint"><p>Welcome to the Learn to Code track, which has been the starting point for millions of learners.</p>
+                </span>
+              </div>
+              <div class="report">
+                <img src="assets/images/icons/flag.png" class="report-icon">
+                <span class="report-text">
+                  Report
+                </span>
+              </div> 
+
+            </div> <!-- feedback active -->
+
+                <div class="feedback-action-container">
+                <button class="feedback-action">Continue</button>
+                </div>
+
+        </div>
+      </div> <!-- dont remove -->
+    </div> 
+
+
+
+        </div><!-- end courses row wrapper and sidebar -->
+
+      </div>
+
+    </div>
+
+
+
+
+
+
+  <script>
+
+
+    var clickItem = document.querySelector(".lesson-action");
+    var sidebar = document.querySelector(".lesson-feedback-section, .success");
+    var progress = document.querySelector(".progress");
+    
+    clickItem.addEventListener("click", function() {
+  
+    sidebar.style.display = "";
+    clickItem.style.display = "none";
+    progress.style.width = "50%";
+
+    });
+
+
+
+
+    // Dropdown Scripts
+
+
+    $(document).ready(function() {
+      // Toggle dropdown menu on click of trigger element
+      $(".profile-nav").click(function() {
+        // Hide other dropdown menus in case of multiple dropdowns
+        $(".profile_dropdown-container").not($(this).next()).slideUp(0);
+
+        // Toggle the current dropdown menu
+        $(this).next(".profile_dropdown-container").slideToggle(0);
+
+      });
+
+      // Hide dropdown menu on click outside
+      $(document).on("click", function(event) {
+        if (!$(event.target).closest(".profile-nav").length) {
+          $(".profile_dropdown-container").slideUp(0);
+
+        }
+      });
+    });
+
+
+  </script>
+
+
+
+</body>
+
+</html>
